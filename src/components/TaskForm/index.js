@@ -1,16 +1,25 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions } from "@material-ui/core"
-
-import styles from "./styles";
-
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import styles from './styles';
 
 class TaskForm extends Component {
   render() {
-    const { open, onClose } = this.props
+    const { open, onClose } = this.props;
     return (
       <div>
-        <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+        <Dialog
+          open={open}
+          onClose={onClose}
+          aria-labelledby="form-dialog-title"
+        >
           <DialogTitle id="form-dialog-title">Thêm mới công việc</DialogTitle>
           <DialogContent>
             <TextField
@@ -42,6 +51,6 @@ class TaskForm extends Component {
       </div>
     );
   }
-};
+}
 
 export default withStyles(styles)(TaskForm);

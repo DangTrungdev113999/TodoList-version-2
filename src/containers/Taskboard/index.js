@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Grid } from '@material-ui/core';
-import { Add } from "@material-ui/icons"
-
+import { Add } from "@material-ui/icons";
 import styles from "./styles";
 import { STATUS } from "./../../constants";
-
 import TaskItem from "./../../components/TaskItem/index";
 import TaskForm from "./../../components/TaskForm/index";
 
@@ -42,7 +40,7 @@ class Taskboard extends Component {
   }
 
   renderBoard = () => {
-    let board = null;
+    let board = null
     board = (
       <Grid container spacing={2}>
         {STATUS.map( (status, index) => {
@@ -77,7 +75,7 @@ class Taskboard extends Component {
         </Button>
 
         {this.renderBoard()}
-        
+
         <TaskForm open={open} onClose={this.onHandleCloase} />
       </div> 
     )
