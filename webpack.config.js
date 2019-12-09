@@ -1,74 +1,75 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const devServer = {
   port: 8888,
-  open: true
-}
+  open: true,
+};
 
 const VENDOR_LIBS = [
   'axios',
-  "react",
-  "react-dom",
-  "react-redux",
-  "react-router-dom",
-  "redux",
-]
+  'react',
+  'react-dom',
+  'react-redux',
+  'react-router-dom',
+  'redux',
+];
 
 module.exports = {
   entry: {
-    bundle: ['@babel/polyfill', "./src/index.js"],
-    vendor: VENDOR_LIBS
+    bundle: ['@babel/polyfill', './src/index.js'],
+    vendor: VENDOR_LIBS,
   },
   output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[name].[chunkhash].js"
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].[chunkhash].js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: "babel-loader",
-        exclude: "/node_modules"
+        use: 'babel-loader',
+        exclude: '/node_modules',
       },
       {
         test: /\.css$/,
         use: [
-          {loader: "style-loader"},
+          { loader: 'style-loader' },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
-              module: true
-            }
-          }
-        ]
+              module: true,
+            },
+          },
+        ],
       },
       {
         loader: 'file-loader',
         test: /\.jpe?g&|\.gif&|\png.&|\.svg&|\.woff&|\.woff2&|\.eot&|\.ttf&|\.wav&|\.np3&|\.ico&/,
       },
-    ]
+    ],
   },
 
-  mode: "development",
+  mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html"
+      template: 'src/index.html',
     }),
-    new ManifestPlugin()
+    new ManifestPlugin(),
   ],
 
-  optimization: { // performen
+  optimization: {
+    // performen
     splitChunks: {
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
-  devServer
-}
+  devServer,
+};
