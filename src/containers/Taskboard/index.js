@@ -19,13 +19,13 @@ class Taskboard extends Component {
 
   componentDidMount() {
     const { taskActionCreators } = this.props;
-    const { fetchListTask } = taskActionCreators;
-    fetchListTask();
+    const { fetchListTaskApi } = taskActionCreators;
+    fetchListTaskApi();
   }
 
   renderBoard = () => {
     let board = null;
-    const listTask = [];
+    const { listTask } = this.props;
     board = (
       <Grid container spacing={2}>
         {STATUS.map((status, index) => {
@@ -74,11 +74,16 @@ class Taskboard extends Component {
 Taskboard.protoTypes = {
   classes: PropTypes.object,
   taskActionCreators: PropTypes.shape({
-    // fetchListTask: PropTypes.func,
+    fetchListTaskApi: PropTypes.func,
   }),
+  listTask: PropTypes.array,
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => {
+  return {
+    listTask: state.task.listTask,
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     taskActionCreators: bindActionCreators(taskActions, dispatch),
