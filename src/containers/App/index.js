@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import '!style-loader!css-loader!react-toastify/dist/ReactToastify.css';
 
 import Taskboard from './../Taskboard/index';
 import styles from './styles';
@@ -15,6 +17,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
+          <ToastContainer  />
           <Taskboard />
         </ThemeProvider>
       </Provider>
