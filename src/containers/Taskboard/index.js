@@ -19,8 +19,8 @@ class Taskboard extends Component {
 
   componentDidMount() {
     const { taskActionCreators } = this.props;
-    const { fetchListTaskApi } = taskActionCreators;
-    fetchListTaskApi();
+    const { fetchListTask } = taskActionCreators;
+    fetchListTask();
   }
 
   renderBoard = () => {
@@ -74,7 +74,7 @@ class Taskboard extends Component {
 Taskboard.protoTypes = {
   classes: PropTypes.object,
   taskActionCreators: PropTypes.shape({
-    fetchListTaskApi: PropTypes.func,
+    fetchListTask: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };

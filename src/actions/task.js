@@ -25,12 +25,12 @@ export const fetchListTaskFailed = error => {
   };
 };
 
-export const fetchListTaskApi = () => {
-  return dispatch => {
-    dispatch(fetchListTask());
-    taskApis
-      .getLists()
-      .then(res => dispatch(fetchListTaskSuccess(res.data)))
-      .catch(err => dispatch(fetchListTaskFailed(err)));
-  };
-};
+// export const fetchListTaskApi = () => {
+//   return dispatch => {
+//     dispatch(fetchListTask());
+//     taskApis
+//       .getLists()
+//       .then(res => dispatch(fetchListTaskSuccess(res.data)))
+//       .catch(err => dispatch(fetchListTaskFailed(err)));
+//   };
+// };

@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <ToastContainer  />
+          <ToastContainer />
           <Taskboard />
         </ThemeProvider>
       </Provider>
