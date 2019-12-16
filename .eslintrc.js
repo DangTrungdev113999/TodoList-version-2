@@ -9,10 +9,12 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'eslint:recommended',
+    'plugin:redux-saga/recommended',
     'airbnb',
     'prettier',
+    'prettier/react',
   ],
-  plugins: ['prettier', 'react', 'prettier/react'],
+  plugins: ['prettier', 'redux-saga', 'react', 'react-hooks', 'jsx-a11y'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -27,7 +29,13 @@ module.exports = {
   },
   rules: {
     semi: 2,
-    indent: [2, 2],
+    indent: [
+      2,
+      2,
+      {
+        SwitchCase: 1,
+      },
+    ],
     quotes: [2, 'single'],
     'import/prefer-default-export': 0,
     'react/jsx-uses-react': 2,
@@ -36,6 +44,14 @@ module.exports = {
     'react/jsx-max-props-per-line': 2,
     'react/prefer-stateless-function': 0,
     'react/jsx-filename-extension': 0,
-    'prettier/prettier': ['error'],
+    'prettier/prettier': [2],
+    'react/require-default-props': 0,
+    'react/forbid-prop-types': 0,
+    'import/no-webpack-loader-syntax': 0,
+    'import/no-unresolved': 0,
+    'react/state-in-constructor': 1,
+    'redux-saga/no-unhandled-errors': 0,
+    'react/prop-types': 1,
+    'no-case-declarations': 0,
   },
 };

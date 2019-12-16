@@ -5,12 +5,13 @@ import { Add } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as taskActions from './../../actions/task';
+import * as taskActions from '../../actions/task';
 
 import styles from './styles';
-import { STATUS } from './../../constants';
-import TaskItem from './../../components/TaskItem/index';
-import TaskForm from './../../components/TaskForm/index';
+import { STATUS } from '../../constants';
+import TaskItem from '../../components/TaskItem/index';
+import TaskForm from '../../components/TaskForm/index';
+import TaskSearch from '../../components/TaskSearch';
 
 class Taskboard extends Component {
   state = {
@@ -28,13 +29,17 @@ class Taskboard extends Component {
     const { listTask } = this.props;
     board = (
       <Grid container spacing={2}>
-        {STATUS.map((status, index) => {
+        {STATUS.map(status => {
           const { label } = status;
-          let taskFilered = listTask.filter(
+          const taskFilered = listTask.filter(
             item => item.status === status.value,
           );
           return (
-            <TaskItem taskFilered={taskFilered} label={label} key={index} />
+            <TaskItem
+              taskFilered={taskFilered}
+              label={label}
+              key={status.value}
+            />
           );
         })}
       </Grid>
@@ -54,6 +59,14 @@ class Taskboard extends Component {
     });
   };
 
+  onHandleSearch = e => {
+    e.preventDefault();
+    const { value } = e.target;
+    const { taskActionCreators } = this.props;
+    const { searchTask } = taskActionCreators;
+    searchTask(value);
+  };
+
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -63,6 +76,8 @@ class Taskboard extends Component {
           <Add /> &nbsp; Thêm mới công việc
         </Button>
 
+        <TaskSearch onSearch={this.onHandleSearch} />
+
         {this.renderBoard()}
 
         <TaskForm open={open} onClose={this.onHandleCloase} />
@@ -71,10 +86,11 @@ class Taskboard extends Component {
   }
 }
 
-Taskboard.protoTypes = {
+Taskboard.propTypes = {
   classes: PropTypes.object,
   taskActionCreators: PropTypes.shape({
     fetchListTask: PropTypes.func,
+    searchTask: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };

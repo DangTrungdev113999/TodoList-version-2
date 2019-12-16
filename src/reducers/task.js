@@ -1,5 +1,5 @@
-import * as taskTypes from './../constants/task';
-import { toastError } from './../helpers/ToasifyHelper';
+import * as taskTypes from '../constants/task';
+import { toastError } from '../helpers/ToasifyHelper';
 
 const initalState = {
   listTask: [],
@@ -23,6 +23,12 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         listTask: [],
+      };
+    case taskTypes.SEARCH_TASK_SUCCESS:
+      const { data } = action.payload;
+      return {
+        ...state,
+        listTask: data,
       };
     default:
       return state;

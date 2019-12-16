@@ -5,7 +5,7 @@ import { Android } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from './styles';
-import TaskList from './../TaskList/index';
+import TaskList from '../TaskList/index';
 
 class TaskItem extends Component {
   render() {
