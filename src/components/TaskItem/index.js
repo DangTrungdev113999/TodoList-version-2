@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Chip } from '@material-ui/core';
 import { Android } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,5 +25,18 @@ class TaskItem extends Component {
     );
   }
 }
+
+TaskItem.propTypes = {
+  classes: PropTypes.object,
+  taskFilered: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      status: PropTypes.number,
+    }),
+  ),
+  label: PropTypes.string,
+};
 
 export default withStyles(styles)(TaskItem);

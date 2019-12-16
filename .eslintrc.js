@@ -32,7 +32,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react/jsx-uses-react': 2,
     'react/jsx-uses-vars': 2,
-    'react/prop-types': 1,
+    'react/prop-types': 2,
     'react/jsx-max-props-per-line': 2,
     'react/prefer-stateless-function': 0,
     'react/jsx-filename-extension': 0,

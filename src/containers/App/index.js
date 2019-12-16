@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import '!style-loader!css-loader!react-toastify/dist/ReactToastify.css';
 
 import Taskboard from './../Taskboard/index';
+import GlobalLoading from './../../components/GlobalLoading/index';
 import styles from './styles';
 import theme from './../../common/theme';
 
@@ -18,6 +19,7 @@ class App extends Component {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ToastContainer />
+          <GlobalLoading />
           <Taskboard />
         </ThemeProvider>
       </Provider>
