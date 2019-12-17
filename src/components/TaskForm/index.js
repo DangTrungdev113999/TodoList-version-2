@@ -4,17 +4,25 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
 
 import * as modalActions from '../../actions/modal';
 import styles from './styles';
 
 class TaskForm extends Component {
+  handleValue = data => {
+    console.log(data);
+  };
+
   render() {
-    const { modalActionCreators } = this.props;
+    const { modalActionCreators, handleSubmit } = this.props;
     const { hideModal } = modalActionCreators;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleValue)}>
         <Grid container>
+          <Grid item md={12}>
+            <Field name="firstName" component="input" type="text" />
+          </Grid>
           <Grid item md={12}>
             <TextField
               margin="dense"
@@ -44,7 +52,7 @@ class TaskForm extends Component {
                 Cancel
               </Button>
               <Box mr={1}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" type="submit">
                   Ok
                 </Button>
               </Box>
@@ -60,6 +68,7 @@ TaskForm.propTypes = {
   modalActionCreators: PropTypes.shape({
     hideModal: PropTypes.func,
   }),
+  handleSubmit: PropTypes.func,
 };
 
 const mapStateToProps = state => ({});
@@ -69,4 +78,12 @@ const mapDispatchToProps = dispatch => ({
 });
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(withStyles(styles), withConnect)(TaskForm);
+const withReduxForm = reduxForm({
+  form: 'contact',
+});
+
+export default compose(
+  withStyles(styles),
+  withConnect,
+  withReduxForm,
+)(TaskForm);

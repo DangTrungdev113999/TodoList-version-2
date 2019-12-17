@@ -18,7 +18,7 @@ const VENDOR_LIBS = [
 
 module.exports = {
   entry: {
-    bundle: ['@babel/polyfill', './src/index.js'],
+    bundle: './src/index.js',
     vendor: VENDOR_LIBS,
   },
   output: {
@@ -60,7 +60,6 @@ module.exports = {
   ],
 
   optimization: {
-    // performen
     splitChunks: {
       cacheGroups: {
         commons: {
