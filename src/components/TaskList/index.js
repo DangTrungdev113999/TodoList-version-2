@@ -17,7 +17,7 @@ class TaskList extends Component {
     const { title, description } = this.props.item;
     const { classes, label } = this.props;
     return (
-      <Card style={{ marginTop: '15px' }}>
+      <Card style={{ marginTop: '15px', background: '#ecf0f1' }}>
         <CardContent>
           <Grid container justify="space-between">
             <Grid item md={8}>

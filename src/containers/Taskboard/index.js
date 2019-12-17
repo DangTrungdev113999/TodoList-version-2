@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../../actions/task';
+import * as modalActions from '../../actions/modal';
 
 import styles from './styles';
 import { STATUS } from '../../constants';
@@ -14,10 +15,6 @@ import TaskForm from '../../components/TaskForm/index';
 import TaskSearch from '../../components/TaskSearch';
 
 class Taskboard extends Component {
-  state = {
-    open: false,
-  };
-
   componentDidMount() {
     const { taskActionCreators } = this.props;
     const { fetchListTask } = taskActionCreators;
@@ -48,15 +45,28 @@ class Taskboard extends Component {
   };
 
   onHandleOpen = () => {
-    this.setState({
-      open: true,
-    });
+    const { modalActionCreators } = this.props;
+    const {
+      showModal,
+      changeModalTile,
+      changeModalContent,
+    } = modalActionCreators;
+
+    showModal();
+    changeModalTile('Thêm mới công việc');
+    changeModalContent(<TaskForm />);
   };
 
   onHandleCloase = () => {
-    this.setState({
-      open: false,
-    });
+    const { modalActionCreators } = this.props;
+    const {
+      hideModal,
+      changeModalTile,
+      changeModalContent,
+    } = modalActionCreators;
+
+    hideModal();
+    changeModalTile('');
   };
 
   onHandleSearch = e => {
@@ -69,7 +79,6 @@ class Taskboard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
     return (
       <div className={classes.taskboad}>
         <Button variant="contained" color="primary" onClick={this.onHandleOpen}>
@@ -79,8 +88,6 @@ class Taskboard extends Component {
         <TaskSearch onSearch={this.onHandleSearch} />
 
         {this.renderBoard()}
-
-        <TaskForm open={open} onClose={this.onHandleCloase} />
       </div>
     );
   }
@@ -91,6 +98,12 @@ Taskboard.propTypes = {
   taskActionCreators: PropTypes.shape({
     fetchListTask: PropTypes.func,
     searchTask: PropTypes.func,
+  }),
+  modalActionCreators: PropTypes.shape({
+    showModal: PropTypes.func,
+    hideModal: PropTypes.func,
+    changeModalTile: PropTypes.func,
+    changeModalContent: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };
@@ -103,6 +116,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     taskActionCreators: bindActionCreators(taskActions, dispatch),
+    modalActionCreators: bindActionCreators(modalActions, dispatch),
   };
 };
 export default withStyles(styles)(

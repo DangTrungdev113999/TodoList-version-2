@@ -53,5 +53,6 @@ module.exports = {
     'redux-saga/no-unhandled-errors': 0,
     'react/prop-types': 1,
     'no-case-declarations': 0,
+    'import/no-self-import': 0,
   },
 };

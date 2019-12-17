@@ -1,27 +1,21 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from '@material-ui/core';
+import { Button, TextField, Grid, Box } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+
+import * as modalActions from '../../actions/modal';
 import styles from './styles';
 
 class TaskForm extends Component {
   render() {
-    const { open, onClose } = this.props;
+    const { modalActionCreators } = this.props;
+    const { hideModal } = modalActionCreators;
     return (
-      <div>
-        <Dialog
-          open={open}
-          onClose={onClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Thêm mới công việc</DialogTitle>
-          <DialogContent>
+      <form>
+        <Grid container>
+          <Grid item md={12}>
             <TextField
               margin="dense"
               id="title"
@@ -29,7 +23,8 @@ class TaskForm extends Component {
               type="text"
               fullWidth
             />
-
+          </Grid>
+          <Grid item md={12}>
             <TextField
               margin="dense"
               id="description"
@@ -38,19 +33,40 @@ class TaskForm extends Component {
               fullWidth
               multiline
             />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={onClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={onClose} color="primary">
-              Ok
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+          </Grid>
+          <Grid item md={12}>
+            <Box display="flex" flexDirection="row-reverse" mt={2}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => hideModal()}
+              >
+                Cancel
+              </Button>
+              <Box mr={1}>
+                <Button variant="contained" color="primary">
+                  Ok
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </form>
     );
   }
 }
 
-export default withStyles(styles)(TaskForm);
+TaskForm.propTypes = {
+  modalActionCreators: PropTypes.shape({
+    hideModal: PropTypes.func,
+  }),
+};
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+  modalActionCreators: bindActionCreators(modalActions, dispatch),
+});
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withStyles(styles), withConnect)(TaskForm);
