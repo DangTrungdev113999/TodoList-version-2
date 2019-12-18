@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import * as modalActions from '../../actions/modal';
+import renderTextField from '../FormHelper/TextField';
 import styles from './styles';
 
 class TaskForm extends Component {
@@ -21,19 +22,19 @@ class TaskForm extends Component {
       <form onSubmit={handleSubmit(this.handleValue)}>
         <Grid container>
           <Grid item md={12}>
-            <Field name="firstName" component="input" type="text" />
-          </Grid>
-          <Grid item md={12}>
-            <TextField
-              margin="dense"
+            <Field
               id="title"
-              label="Title"
+              name="title"
+              component={renderTextField}
+              placeholder="Enter the title"
               type="text"
               fullWidth
             />
           </Grid>
           <Grid item md={12}>
-            <TextField
+            <Field
+              component={renderTextField}
+              name="discription"
               margin="dense"
               id="description"
               label="Description"
