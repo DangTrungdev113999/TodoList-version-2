@@ -21,7 +21,7 @@ const renderTextField = ({
 
 renderTextField.propTypes = {
   label: PropTypes.string,
-  input: PropTypes.string,
+  input: PropTypes.object,
   meta: PropTypes.object,
 };
 
