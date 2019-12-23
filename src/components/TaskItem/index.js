@@ -9,7 +9,7 @@ import TaskList from '../TaskList/index';
 
 class TaskItem extends Component {
   render() {
-    const { classes, taskFilered, label } = this.props;
+    const { classes, taskFilered, label, onEditTask } = this.props;
     return (
       <Grid item md={4} sm={12}>
         <div className={classes.status}>
@@ -18,7 +18,14 @@ class TaskItem extends Component {
 
         <div className={classes.wrapperListTask}>
           {taskFilered.map(item => {
-            return <TaskList item={item} label={label} key={item.id} />;
+            return (
+              <TaskList
+                item={item}
+                label={label}
+                key={item.id}
+                onEditTask={onEditTask}
+              />
+            );
           })}
         </div>
       </Grid>

@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -15,7 +16,7 @@ import styles from './styles';
 class TaskList extends Component {
   render() {
     const { title, description } = this.props.item;
-    const { classes, label } = this.props;
+    const { classes, label, onEditTask, item } = this.props;
     return (
       <Card style={{ marginTop: '15px', background: '#ecf0f1' }}>
         <CardContent>
@@ -32,7 +33,12 @@ class TaskList extends Component {
           </Grid>
         </CardContent>
         <CardActions className={classes.actionBtn}>
-          <Fab size="small" color="primary" aria-label="add">
+          <Fab
+            size="small"
+            color="primary"
+            aria-label="add"
+            onClick={() => onEditTask(item)}
+          >
             <Add />
           </Fab>
           <Fab size="small" color="secondary" aria-label="delete">

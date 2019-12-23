@@ -1,8 +1,11 @@
 import * as taskType from '../constants/task';
 import { STATUS } from '../constants';
 
-export const fetchListTask = () => ({
+export const fetchListTask = keyword => ({
   type: taskType.FETCH_TASK,
+  payload: {
+    q: keyword,
+  },
 });
 
 export const fetchListTaskSuccess = data => ({
@@ -26,13 +29,6 @@ export const searchTask = keyword => ({
   },
 });
 
-export const searchTaskSuccess = data => ({
-  type: taskType.SEARCH_TASK_SUCCESS,
-  payload: {
-    data,
-  },
-});
-
 export const addTask = (title, description) => ({
   type: taskType.ADD_TASK,
   payload: {
@@ -53,5 +49,12 @@ export const addTaskFailed = error => ({
   type: taskType.ADD_TASK_FAILED,
   payload: {
     error,
+  },
+});
+
+export const setTaskEdit = task => ({
+  type: taskType.SET_TASK_EDIT,
+  payload: {
+    task,
   },
 });

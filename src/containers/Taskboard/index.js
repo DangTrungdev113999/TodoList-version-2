@@ -21,6 +21,21 @@ class Taskboard extends Component {
     fetchListTask();
   }
 
+  onEditTask = task => {
+    const { taskActionCreators, modalActionCreators } = this.props;
+    const {
+      showModal,
+      changeModalTile,
+      changeModalContent,
+    } = modalActionCreators;
+
+    const { setTaskEdit } = taskActionCreators;
+    setTaskEdit(task);
+    showModal();
+    changeModalTile('Cập nhật công việc');
+    changeModalContent(<TaskForm />);
+  };
+
   renderBoard = () => {
     let board = null;
     const { listTask } = this.props;
@@ -36,6 +51,7 @@ class Taskboard extends Component {
               taskFilered={taskFilered}
               label={label}
               key={status.value}
+              onEditTask={this.onEditTask}
             />
           );
         })}
@@ -45,12 +61,14 @@ class Taskboard extends Component {
   };
 
   onHandleOpen = () => {
-    const { modalActionCreators } = this.props;
+    const { modalActionCreators, taskActionCreators } = this.props;
+    const { setTaskEdit } = taskActionCreators;
     const {
       showModal,
       changeModalTile,
       changeModalContent,
     } = modalActionCreators;
+    setTaskEdit(null);
 
     showModal();
     changeModalTile('Thêm mới công việc');
@@ -67,6 +85,7 @@ class Taskboard extends Component {
 
     hideModal();
     changeModalTile('');
+    changeModalContent({});
   };
 
   onHandleSearch = e => {
@@ -98,6 +117,7 @@ Taskboard.propTypes = {
   taskActionCreators: PropTypes.shape({
     fetchListTask: PropTypes.func,
     searchTask: PropTypes.func,
+    setTaskEdit: PropTypes.func,
   }),
   modalActionCreators: PropTypes.shape({
     showModal: PropTypes.func,

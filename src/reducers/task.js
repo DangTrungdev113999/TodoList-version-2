@@ -4,6 +4,7 @@ import { toastError } from '../helpers/ToasifyHelper';
 
 const initalState = {
   listTask: [],
+  taskEdit: null,
 };
 
 const reducer = (state = initalState, action) => {
@@ -49,6 +50,17 @@ const reducer = (state = initalState, action) => {
       toastError(error);
       return {
         ...state,
+      };
+    }
+
+    case taskTypes.SET_TASK_EDIT: {
+      const { task } = action.payload;
+      return {
+        ...state,
+        taskEdit: {
+          title: task ? task.title : null,
+          description: task ? task.description : null,
+        },
       };
     }
 
