@@ -90,9 +90,13 @@ TaskForm.propTypes = {
   handleSubmit: PropTypes.func,
   submiting: PropTypes.bool,
   invalid: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  initialValues: PropTypes.object,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  initialValues: state.task.taskEdit,
+});
 
 const mapDispatchToProps = dispatch => ({
   modalActionCreators: bindActionCreators(modalActions, dispatch),

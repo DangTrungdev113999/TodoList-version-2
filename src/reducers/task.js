@@ -30,13 +30,6 @@ const reducer = (state = initalState, action) => {
         listTask: [],
       };
     }
-    case taskTypes.SEARCH_TASK_SUCCESS: {
-      const { data } = action.payload;
-      return {
-        ...state,
-        listTask: data,
-      };
-    }
     case taskTypes.ADD_TASK_SUCCESS: {
       const { data } = action.payload;
       return {

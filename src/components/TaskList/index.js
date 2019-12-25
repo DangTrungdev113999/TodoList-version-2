@@ -9,7 +9,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
-import { Add, Delete } from '@material-ui/icons';
+import { Delete, Edit } from '@material-ui/icons';
 
 import styles from './styles';
 
@@ -39,7 +39,7 @@ class TaskList extends Component {
             aria-label="add"
             onClick={() => onEditTask(item)}
           >
-            <Add />
+            <Edit />
           </Fab>
           <Fab size="small" color="secondary" aria-label="delete">
             <Delete />
