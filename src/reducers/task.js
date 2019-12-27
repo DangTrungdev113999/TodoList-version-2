@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
+import { toast } from 'react-toastify';
 import * as taskTypes from '../constants/task';
-import { toastError } from '../helpers/ToasifyHelper';
+import { toastError, toastSuccess } from '../helpers/ToasifyHelper';
 
 const initalState = {
   listTask: [],
@@ -50,10 +51,28 @@ const reducer = (state = initalState, action) => {
       const { task } = action.payload;
       return {
         ...state,
-        taskEdit: {
-          title: task ? task.title : null,
-          description: task ? task.description : null,
-        },
+        taskEdit: task,
+      };
+    }
+
+    case taskTypes.UPDATE_TASK_SUCCESS: {
+      const { data } = action.payload;
+      const index = state.listTask.findIndex(list => list.id === data.id);
+      let newList = state.listTask;
+      if (index !== -1) {
+        newList = [
+          ...state.listTask.slice(0, index),
+          data,
+          ...state.listTask.slice(index + 1),
+        ];
+        toastSuccess('Cập nhật thành công');
+        return {
+          ...state,
+          listTask: newList,
+        };
+      }
+      return {
+        ...state,
       };
     }
 

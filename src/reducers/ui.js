@@ -1,4 +1,4 @@
-import * as uiTypes from './../constants/ui';
+import * as uiTypes from '../constants/ui';
 
 const initalState = {
   showLoading: false,

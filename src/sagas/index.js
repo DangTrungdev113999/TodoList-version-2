@@ -6,9 +6,10 @@ import {
   takeEvery,
   select,
 } from 'redux-saga/effects';
+import { STATUS, STATUS_CODE } from '../constants/index';
 
 import * as taskTypes from '../constants/task';
-import { getLists, addTask } from '../apis/task';
+import { getLists, addTask, updateTask } from '../apis/task';
 
 import {
   fetchListTask,
@@ -16,8 +17,10 @@ import {
   fetchListTaskFailed,
   addTaskSuccess,
   addTaskFailed,
+  updateTaskSuccess,
+  updateTaskFaild,
 } from '../actions/task';
-import { STATUS_CODE } from '../constants/index';
+
 import { showLoading, hideLoading } from '../actions/ui';
 import { hideModal } from '../actions/modal';
 
@@ -45,7 +48,7 @@ function* searchTaskSaga({ payload }) {
 
 function* addTaskSaga({ payload }) {
   yield put(showLoading());
-  const response = yield call(addTask, payload);
+  const response = yield call(addTask, { ...payload, status: STATUS[0].value });
   if (response.status === STATUS_CODE.CREATED) {
     yield put(addTaskSuccess(response.data));
     yield put(hideModal());
@@ -56,10 +59,25 @@ function* addTaskSaga({ payload }) {
   yield put(hideLoading());
 }
 
+function* updateTaskSaga({ payload }) {
+  const taskEdit = yield select(state => state.task.taskEdit);
+  yield put(showLoading());
+  const response = yield call(updateTask, payload, taskEdit.id);
+  if (response.status === STATUS_CODE.SUCCESS) {
+    yield put(updateTaskSuccess(response.data));
+    yield put(hideModal());
+  } else {
+    yield put(updateTaskFaild(response.data));
+  }
+  yield delay(500);
+  yield put(hideLoading());
+}
+
 function* rootSaga() {
   yield takeEvery(taskTypes.FETCH_TASK, fetchListTaskSaga);
   yield takeLatest(taskTypes.SEARCH_TASK, searchTaskSaga);
   yield takeEvery(taskTypes.ADD_TASK, addTaskSaga);
+  yield takeEvery(taskTypes.UPDATE_TASK, updateTaskSaga);
 }
 
 export default rootSaga;

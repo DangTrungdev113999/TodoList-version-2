@@ -12,3 +12,11 @@ export const toastError = error => {
     });
   }
 };
+
+export const toastSuccess = str => {
+  if (str && str.length) {
+    toast.success(str, {
+      autoClose: 3000,
+    });
+  }
+};

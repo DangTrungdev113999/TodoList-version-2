@@ -1,4 +1,4 @@
-import { Button, Grid, Box } from '@material-ui/core';
+import { Button, Grid, Box, MenuItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
@@ -11,13 +11,43 @@ import * as taskActions from '../../actions/task';
 import renderTextField from '../FormHelper/TextField';
 import validate from './validate';
 import styles from './styles';
+import renderSelectField from '../FormHelper/SelectField';
+import { STATUS } from '../../constants/index';
 
 class TaskForm extends Component {
   handleValue = data => {
-    const { title, description } = data;
-    const { taskActionCreators } = this.props;
-    const { addTask } = taskActionCreators;
-    addTask(title, description);
+    const { title, description, status } = data;
+    const { taskActionCreators, initialValues } = this.props;
+    const { addTask, updateTask } = taskActionCreators;
+    if (initialValues && initialValues.title) {
+      return updateTask(title, description, status);
+    }
+    return addTask(title, description);
+  };
+
+  renderSelecter = () => {
+    const xhtml = null;
+    const { classes, initialValues } = this.props;
+    if (initialValues && initialValues.title) {
+      return (
+        <Grid item md={12}>
+          <Field
+            classes={classes.select}
+            name="status"
+            id="status"
+            component={renderSelectField}
+            label="status"
+          >
+            {STATUS.map(option => (
+              <MenuItem value={option.value} key={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Field>
+        </Grid>
+      );
+    }
+    return xhtml;
   };
 
   render() {
@@ -35,6 +65,7 @@ class TaskForm extends Component {
             <Field
               id="title"
               name="title"
+              label="title"
               component={renderTextField}
               placeholder="Nhập tiêu đề"
               type="text"
@@ -53,6 +84,7 @@ class TaskForm extends Component {
               multiline
             />
           </Grid>
+          {this.renderSelecter()}
           <Grid item md={12}>
             <Box display="flex" flexDirection="row-reverse" mt={2}>
               <Button
@@ -86,16 +118,22 @@ TaskForm.propTypes = {
   }),
   taskActionCreators: PropTypes.shape({
     addTask: PropTypes.func,
+    updateTask: PropTypes.func,
   }),
   handleSubmit: PropTypes.func,
   submiting: PropTypes.bool,
   invalid: PropTypes.bool,
   // eslint-disable-next-line react/no-unused-prop-types
   initialValues: PropTypes.object,
+  classes: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  initialValues: state.task.taskEdit,
+  initialValues: {
+    title: state.task.taskEdit ? state.task.taskEdit.title : null,
+    description: state.task.taskEdit ? state.task.taskEdit.description : null,
+    status: state.task.taskEdit ? state.task.taskEdit.status : null,
+  },
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,5 +1,5 @@
 import * as taskType from '../constants/task';
-import { STATUS } from '../constants';
+import { STATUS } from '../constants/index';
 
 export const fetchListTask = keyword => ({
   type: taskType.FETCH_TASK,
@@ -34,7 +34,6 @@ export const addTask = (title, description) => ({
   payload: {
     title,
     description,
-    status: STATUS[0].value,
   },
 });
 
@@ -56,5 +55,28 @@ export const setTaskEdit = task => ({
   type: taskType.SET_TASK_EDIT,
   payload: {
     task,
+  },
+});
+
+export const updateTask = (title, description, status = STATUS[0].value) => ({
+  type: taskType.UPDATE_TASK,
+  payload: {
+    title,
+    description,
+    status,
+  },
+});
+
+export const updateTaskSuccess = data => ({
+  type: taskType.UPDATE_TASK_SUCCESS,
+  payload: {
+    data,
+  },
+});
+
+export const updateTaskFaild = error => ({
+  type: taskType.UPDATE_TASK_FAILED,
+  payload: {
+    error,
   },
 });

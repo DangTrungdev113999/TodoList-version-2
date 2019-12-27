@@ -9,6 +9,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import { Delete, Edit } from '@material-ui/icons';
 
 import styles from './styles';
@@ -49,5 +50,15 @@ class TaskList extends Component {
     );
   }
 }
+
+TaskList.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+  classes: PropTypes.object,
+  label: PropTypes.string,
+  onEditTask: PropTypes.func,
+};
 
 export default withStyles(styles)(TaskList);

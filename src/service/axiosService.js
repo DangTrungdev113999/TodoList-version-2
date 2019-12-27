@@ -23,6 +23,10 @@ class AxiosService {
   post(url, data) {
     return this.instance.post(url, data);
   }
+
+  put(url, data) {
+    return this.instance.put(url, data);
+  }
 }
 
 export default new AxiosService();
