@@ -9,7 +9,7 @@ import {
 import { STATUS, STATUS_CODE } from '../constants/index';
 
 import * as taskTypes from '../constants/task';
-import { getLists, addTask, updateTask } from '../apis/task';
+import { getLists, addTask, updateTask, deleteTask } from '../apis/task';
 
 import {
   fetchListTask,
@@ -36,12 +36,12 @@ function* fetchListTaskSaga(param) {
     yield put(fetchListTaskFailed(data));
   }
 
-  yield delay(500);
+  yield delay(100);
   yield put(hideLoading());
 }
 
 function* searchTaskSaga({ payload }) {
-  yield delay(500);
+  yield delay(100);
   const { keyword } = payload;
   yield put(fetchListTask(keyword));
 }
@@ -55,7 +55,7 @@ function* addTaskSaga({ payload }) {
   } else {
     yield put(addTaskFailed(response.data));
   }
-  yield delay(500);
+  yield delay(100);
   yield put(hideLoading());
 }
 
@@ -69,8 +69,17 @@ function* updateTaskSaga({ payload }) {
   } else {
     yield put(updateTaskFaild(response.data));
   }
-  yield delay(500);
+  yield delay(100);
   yield put(hideLoading());
+}
+
+function* deleteTaskSaga({ payload }) {
+  const { id } = payload;
+  yield put(showLoading());
+  const response = yield call(deleteTask, id);
+  if (response.status === STATUS_CODE.SUCCESS) {
+    yield put(fetchListTask());
+  }
 }
 
 function* rootSaga() {
@@ -78,6 +87,7 @@ function* rootSaga() {
   yield takeLatest(taskTypes.SEARCH_TASK, searchTaskSaga);
   yield takeEvery(taskTypes.ADD_TASK, addTaskSaga);
   yield takeEvery(taskTypes.UPDATE_TASK, updateTaskSaga);
+  yield takeEvery(taskTypes.DELETE_TASK, deleteTaskSaga);
 }
 
 export default rootSaga;

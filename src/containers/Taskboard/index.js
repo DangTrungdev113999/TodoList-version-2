@@ -36,6 +36,12 @@ class Taskboard extends Component {
     changeModalContent(<TaskForm />);
   };
 
+  onEditTask = id => {
+    const { taskActionCreators } = this.props;
+    const { deleteTask } = taskActionCreators;
+    deleteTask(id);
+  };
+
   renderBoard = () => {
     let board = null;
     const { listTask } = this.props;
@@ -52,6 +58,7 @@ class Taskboard extends Component {
               label={label}
               key={status.value}
               onEditTask={this.onEditTask}
+              onDeleteTask={this.onEditTask}
             />
           );
         })}
@@ -118,6 +125,7 @@ Taskboard.propTypes = {
     fetchListTask: PropTypes.func,
     searchTask: PropTypes.func,
     setTaskEdit: PropTypes.func,
+    deleteTask: PropTypes.func,
   }),
   modalActionCreators: PropTypes.shape({
     showModal: PropTypes.func,

@@ -12,10 +12,11 @@ export const getLists = (params = {}) => {
   return axiosService.get(`${API_ENDPOINT}/${url}${queryParams}`);
 };
 
-export const addTask = data => {
-  return axiosService.post(`${API_ENDPOINT}/${url}`, data);
-};
+export const addTask = data =>
+  axiosService.post(`${API_ENDPOINT}/${url}`, data);
 
-export const updateTask = (data, taskId) => {
-  return axiosService.put(`${API_ENDPOINT}/${url}/${taskId}`, data);
-};
+export const updateTask = (data, taskId) =>
+  axiosService.put(`${API_ENDPOINT}/${url}/${taskId}`, data);
+
+export const deleteTask = id =>
+  axiosService.delete(`${API_ENDPOINT}/${url}/${id}`);

@@ -80,3 +80,10 @@ export const updateTaskFaild = error => ({
     error,
   },
 });
+
+export const deleteTask = id => ({
+  type: taskType.DELETE_TASK,
+  payload: {
+    id,
+  },
+});

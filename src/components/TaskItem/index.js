@@ -9,7 +9,13 @@ import TaskList from '../TaskList/index';
 
 class TaskItem extends Component {
   render() {
-    const { classes, taskFilered, label, onEditTask } = this.props;
+    const {
+      classes,
+      taskFilered,
+      label,
+      onEditTask,
+      onDeleteTask,
+    } = this.props;
     return (
       <Grid item md={4} sm={12}>
         <div className={classes.status}>
@@ -24,6 +30,7 @@ class TaskItem extends Component {
                 label={label}
                 key={item.id}
                 onEditTask={onEditTask}
+                onDeleteTask={onDeleteTask}
               />
             );
           })}
@@ -44,6 +51,8 @@ TaskItem.propTypes = {
     }),
   ),
   label: PropTypes.string,
+  onEditTask: PropTypes.func,
+  onDeleteTask: PropTypes.func,
 };
 
 export default withStyles(styles)(TaskItem);
