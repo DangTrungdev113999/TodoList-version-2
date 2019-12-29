@@ -22,6 +22,7 @@ class Taskboard extends Component {
   }
 
   onEditTask = task => {
+    console.log(task);
     const { taskActionCreators, modalActionCreators } = this.props;
     const {
       showModal,
@@ -36,7 +37,7 @@ class Taskboard extends Component {
     changeModalContent(<TaskForm />);
   };
 
-  onEditTask = id => {
+  onDeleteTask = id => {
     const { taskActionCreators } = this.props;
     const { deleteTask } = taskActionCreators;
     deleteTask(id);
@@ -58,7 +59,7 @@ class Taskboard extends Component {
               label={label}
               key={status.value}
               onEditTask={this.onEditTask}
-              onDeleteTask={this.onEditTask}
+              onDeleteTask={this.onDeleteTask}
             />
           );
         })}

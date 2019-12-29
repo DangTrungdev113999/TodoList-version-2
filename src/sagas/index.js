@@ -10,6 +10,7 @@ import { STATUS, STATUS_CODE } from '../constants/index';
 
 import * as taskTypes from '../constants/task';
 import { getLists, addTask, updateTask, deleteTask } from '../apis/task';
+import { toastSuccess } from '../helpers/ToasifyHelper';
 
 import {
   fetchListTask,
@@ -79,6 +80,7 @@ function* deleteTaskSaga({ payload }) {
   const response = yield call(deleteTask, id);
   if (response.status === STATUS_CODE.SUCCESS) {
     yield put(fetchListTask());
+    toastSuccess('Xóa thành công');
   }
 }
 
