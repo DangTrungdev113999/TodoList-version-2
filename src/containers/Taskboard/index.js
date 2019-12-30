@@ -22,7 +22,6 @@ class Taskboard extends Component {
   }
 
   onEditTask = task => {
-    console.log(task);
     const { taskActionCreators, modalActionCreators } = this.props;
     const {
       showModal,

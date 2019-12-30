@@ -2,7 +2,7 @@ import queryString from 'query-string';
 import axiosService from '../service/axiosService';
 import { API_ENDPOINT } from '../constants/index';
 
-const url = 'tasks';
+const url = 'task';
 
 export const getLists = (params = {}) => {
   let queryParams = '';

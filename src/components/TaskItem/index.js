@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Chip } from '@material-ui/core';
@@ -23,12 +24,12 @@ class TaskItem extends Component {
         </div>
 
         <div className={classes.wrapperListTask}>
-          {taskFilered.map(item => {
+          {taskFilered.map((item, index) => {
             return (
               <TaskList
                 item={item}
                 label={label}
-                key={item.id}
+                key={index}
                 onEditTask={onEditTask}
                 onDeleteTask={onDeleteTask}
               />

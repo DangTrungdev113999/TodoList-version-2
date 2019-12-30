@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react/destructuring-assignment */
@@ -50,7 +51,7 @@ class TaskList extends Component {
             aria-label="delete"
             onClick={() =>
               confirm(`Do you want to delelte ${item.title}`)
-                ? onDeleteTask(item.id)
+                ? onDeleteTask(item._id)
                 : null
             }
           >

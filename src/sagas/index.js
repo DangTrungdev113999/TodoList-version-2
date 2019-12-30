@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   call,
   put,
@@ -18,12 +19,10 @@ import {
   fetchListTaskFailed,
   addTaskSuccess,
   addTaskFailed,
-  updateTaskSuccess,
-  updateTaskFaild,
 } from '../actions/task';
 
 import { showLoading, hideLoading } from '../actions/ui';
-import { hideModal } from '../actions/modal';
+import { hideModal, showModal } from '../actions/modal';
 
 function* fetchListTaskSaga(param) {
   const { payload } = param;
@@ -36,13 +35,11 @@ function* fetchListTaskSaga(param) {
   } else {
     yield put(fetchListTaskFailed(data));
   }
-
-  yield delay(100);
   yield put(hideLoading());
 }
 
 function* searchTaskSaga({ payload }) {
-  yield delay(100);
+  yield delay(1000);
   const { keyword } = payload;
   yield put(fetchListTask(keyword));
 }
@@ -56,22 +53,21 @@ function* addTaskSaga({ payload }) {
   } else {
     yield put(addTaskFailed(response.data));
   }
-  yield delay(100);
   yield put(hideLoading());
 }
 
 function* updateTaskSaga({ payload }) {
   const taskEdit = yield select(state => state.task.taskEdit);
   yield put(showLoading());
-  const response = yield call(updateTask, payload, taskEdit.id);
+  const response = yield call(updateTask, payload, taskEdit._id);
   if (response.status === STATUS_CODE.SUCCESS) {
-    yield put(updateTaskSuccess(response.data));
+    yield put(fetchListTask());
     yield put(hideModal());
+    toastSuccess('Update successful');
   } else {
-    yield put(updateTaskFaild(response.data));
+    yield put(showModal());
+    toastSuccess('Update failed');
   }
-  yield delay(100);
-  yield put(hideLoading());
 }
 
 function* deleteTaskSaga({ payload }) {
@@ -80,7 +76,9 @@ function* deleteTaskSaga({ payload }) {
   const response = yield call(deleteTask, id);
   if (response.status === STATUS_CODE.SUCCESS) {
     yield put(fetchListTask());
-    toastSuccess('Xóa thành công');
+    toastSuccess('Delete successful');
+  } else {
+    toastSuccess('Delete failed');
   }
 }
 
