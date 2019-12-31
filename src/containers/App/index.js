@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import 'core-js';
 
 import '!style-loader!css-loader!react-toastify/dist/ReactToastify.css';
 
