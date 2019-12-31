@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const devServer = {
-  port: 8888,
+  port: process.env.PORT || 8888,
   open: true,
 };
 
